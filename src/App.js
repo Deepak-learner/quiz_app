@@ -1,22 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Home from './components/home';
 
 function App() {
+
+  const [userDetails, setUserDetails] = useState({name: "Puneet", role: "teacher"});
+
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <React.Fragment>
+          <CssBaseline />
+          <Container>
+            <Router>
+                <Switch>
+                  <Route path="/teacher/:id">
+                    <div></div>
+                  </Route>
+                  <Route path="/student/:id">
+                  <div></div>
+                  </Route>
+                  <Route path="/">
+                    <Home  userDetails={userDetails} />
+                  </Route>
+                </Switch>
+            </Router>
+          </Container>
+        </React.Fragment>
       </header>
     </div>
   );
