@@ -8,6 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CreateQuestion from './createQuestion';
 
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import Container from '@material-ui/core/Container';
+import DisplayQuestion from './displayQuestion';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -42,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddQuiz = () => {
+const AddQuiz = (props) => {
   const classes = useStyles();
   const [quizDetails, setQuizDetails] = useState({
       questions: [],
@@ -53,6 +59,7 @@ const AddQuiz = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState(null);
 
+
   const handleChange = (event, newValue) => {
       if(newValue == quizDetails.questions.length) {
           setQuizDetails({...quizDetails, questions: [...quizDetails.questions, {
@@ -61,17 +68,24 @@ const AddQuiz = () => {
               correctAnswer: "",
               marks: 0
           }] });
-          
+
       }
+
       setCurrentQuestion(newValue);
-    
+
   };
 
   const updateQuestion = (question, i) => {
     let quizDetailsQuestions = quizDetails.questions;
     quizDetailsQuestions[i] = question;
     setQuizDetails({...quizDetails, questions: quizDetailsQuestions });
+    alert("Question Added Successfully ! . Press 'Show question' button to see your question.");
   }
+
+  let valid=false;
+  const [showProfile , setShowProfile] = useState(valid);
+
+
 
   return (
     <div className={classes.root}>
@@ -94,9 +108,29 @@ const AddQuiz = () => {
           <Tab label="Add Question" />
         </Tabs>
       </AppBar>
-      {currentQuestion && <TabPanel value={currentQuestion} index={currentQuestion}>
+      {currentQuestion!=null && <TabPanel value={currentQuestion} index={currentQuestion}>
                 <CreateQuestion update={(questionParam) => {  updateQuestion(questionParam, currentQuestion) }}  question={quizDetails.questions[currentQuestion]}></CreateQuestion>
+
       </TabPanel>}
+
+      <Button style={{margin:'10px'}} variant="contained" color="secondary" onClick={()=>{setShowProfile(valid => !valid) }}>
+          Show Questions
+      </Button>
+
+      {!showProfile ? (
+
+         <div>
+
+         </div>
+       ) : (
+       <div>
+
+      <DisplayQuestion ques={quizDetails.questions} user={props}/>
+    
+  </div>)}
+
+
+
     </div>
   );
 }

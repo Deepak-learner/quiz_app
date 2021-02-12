@@ -7,42 +7,30 @@ import Grid from '@material-ui/core/Grid';
 
 
 const Home = (props) => {
-    let { userDetails } = props;
-    const [showLogin, setShowLogin] = React.useState(false);
-    const [role, setRole] = useState('student')
 
-    const handleClickOpen = (roleParam) => {
-        setRole(roleParam);
-        setShowLogin(true);
-    }
 
-    if (!userDetails) {
+
+
+
+
+    if (props.userDetails.Role == 'Student') {
         return <div>
-            <Grid container spacing={3}>
-                <Grid item xs={6}>
-                    <Button variant="contained" color="secondary" onClick={() => { handleClickOpen('teacher') }}>
-                        Login as Teacher
-                    </Button>
-                </Grid>
 
-                <Grid item xs={6}>
-                    <Button variant="contained" color="secondary" onClick={() => { handleClickOpen('student') }}>
-                        Login as Student
-                    </Button>
-                </Grid>
-            </Grid>
 
-            <Login role={role} show={showLogin} handleClose={() => { setShowLogin(false) }} ></Login>
+          <StudentDashboard  {...props}></StudentDashboard>
+
+
         </div>
     }
-    return <div>
-        {
-            userDetails.role == "student" && <StudentDashboard  {...props}></StudentDashboard>
-        }
-        {
-            userDetails.role == "teacher" && <TeacherDashboard {...props}></TeacherDashboard>
-        }
-    </div>
+    else{
+      return <div>
+
+
+             <TeacherDashboard {...props}></TeacherDashboard>
+
+      </div>
+    }
+
 }
 
 export default Home;

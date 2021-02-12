@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
         margin: theme.spacing(1),
-        width: '25ch',
+        width: '20ch',
       },
     },
   }));
@@ -43,28 +43,36 @@ const CreateQuestion = (props) => {
         />
     <TextField
           id="standard-multiline-flexible"
-          label="Option 1"
+          label="Option 2"
           value={question.options[1]}
           onChange={(e) => { handleOption(e, 1)  }}
         />
     <TextField
           id="standard-multiline-flexible"
-          label="Option 1"
+          label="Option 3"
           value={question.options[2]}
           onChange={(e) => { handleOption(e, 2)  }}
         />
     <TextField
           id="standard-multiline-flexible"
-          label="Option 1"
+          label="Option 4"
           value={question.options[3]}
           onChange={(e) => { handleOption(e, 3)  }}
         />
+        <TextField
+              id="standard-multiline-flexible"
+              label="Correct Answer"
+              value={question.options[4]}
+              onChange={(e) => { handleOption(e, 4)  }}
+            />
     <Button variant="contained" color="secondary" onClick={() => { props.update(question) }}>
-                        Submit
+                        Submit Question
                     </Button>
+    <Button style={{margin:'5px'}} variant="contained" color="primary" onClick={() => {alert("Quiz Set-up Complete")}}>
+                                        Setup Quiz
+    </Button>
+
   </form>
 }
 
 export default CreateQuestion
-
-
